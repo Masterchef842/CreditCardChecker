@@ -20,10 +20,57 @@ const mystery4 = [4, 9, 2, 9, 8, 7, 7, 1, 6, 9, 2, 1, 7, 0, 9, 3]
 const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3]
 
 // An array of all the arrays above
-const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
+const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2]//, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
 
 
 // Add your functions below:
+function validateCred(arr){
+
+    let doubleDigit= true;
+    let sum=arr[arr.length-1]
+
+    for(let i = arr.length-2; i>=0; i--){
+        if(doubleDigit){
+            if((2*arr[i])>9)
+                sum+=(2*arr[i])-9
+            else
+                sum+=(2*arr[i])
+
+        }
+        else
+            sum+=arr[i]
+
+
+        doubleDigit=!doubleDigit
+        
+    }
+    if(sum%10===0)
+        return true
+    return false
+}
+function findInvalidCards(arr){
+    let invalidCards=arr.filter(card=>!validateCred(card))
+    return invalidCards
+}
+function invalidCardCompaines(arr){
+    let companies=new Set()
+    arr.forEach(element => {
+        if(element[0]===3)
+            companies.add('Amex (American Express)')
+        else if(element[0]===4)
+            companies.add('Visa')
+        else if(element[0]===5)
+            companies.add('Mastercard')
+        else if(element[0]===6)
+            companies.add('Discover')
+        else
+            console.log('company not found');
+
+    });
+    let comp=[]
+    companies.forEach(ent =>{comp.push(ent)})
+    return comp
+}
 
 
 
